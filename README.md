@@ -2,9 +2,7 @@
 
 #### This repository is the first project for ADA course using Python.
 
-# Hangman Game
-
-This is a simple hangman game implemented in Python. The program selects a random word from a predefined list, and the user tries to guess the word by entering individual letters. The user has a limited number of attempts to guess the word correctly.
+This is a hangman game implemented in Python. The program selects a random word from a predefined list, and the user tries to guess the word by entering individual letters. The user has a limited number of attempts to guess the word correctly.
 
 ## Libraries
 The following library is used in this program:
