@@ -19,25 +19,34 @@ right_letters = []
 ## Functions ##
 
 # This function selects a random word and transforms it into underscores
-def selectWord (words_list:list) -> tuple:
+def selectWord(words_list:list) -> tuple:
     random_word = random.choice(words_list)
     unknoun_word= "_"*len(random_word)
     return random_word , unknoun_word
 
 # This function gives the distinct letters of a word
-def identifyLettersInWord (word:str) -> str:
+def identifyLettersInWord(word:str) -> str:
     setLetters = set(word)
     return setLetters
 
 # This function checks if a letter is present in a word
-def checkIfLetterInWord (letter:str, word:str) -> bool:
+def checkIfLetterInWord(letter:str, word:str) -> bool:
     if letter in word:
+        right_letters.append(letter)
+        print("Letras incorrectas: ", wrong_letters)
+        print("Letras correctas: ", right_letters)
         return True
     else:
+        wrong_letters.append(letter)
+        print("Letras incorrectas: ", wrong_letters)
+        print("Letras correctas: ", right_letters)
         return False
     
+
+    
+    
 # This function checks if the user selects a correct letter and if not the user losses a life
-def losingLife (life_count:int, notLessLife:bool) -> int:
+def losingLife(life_count:int, notLessLife:bool) -> int:
     if notLessLife:
         life_count 
     else:
@@ -45,7 +54,7 @@ def losingLife (life_count:int, notLessLife:bool) -> int:
     return life_count
 
 # This function returns the unknown word with a string of underscores with the replacements of each underscore with the correct letter inputted by an user
-def replaceUnderscoresWithLetter (letter:str, word:str, unknoun_word:str) -> str :
+def replaceUnderscoresWithLetter(letter:str, word:str, unknoun_word:str) -> str :
     positions = []
     counter = 0
     word_list = [*word]
@@ -55,32 +64,63 @@ def replaceUnderscoresWithLetter (letter:str, word:str, unknoun_word:str) -> str
         if l == letter:
             positions.append(counter)
         counter += 1
-    print(positions) 
+    #print(positions) 
 
     for p in positions:
         unknoun_word_list[p] = letter
-    print(unknoun_word_list)
+    #print(unknoun_word_list)
     word_string = ''.join(unknoun_word_list)
-    print(word_string)
+    #print(word_string)
 
     return word_string
 
 # This function tells if there are underscores remaining
-def checkIfUnderscoresRemaining (unknoun_word:str):
+def checkIfUnderscoresRemaining(unknoun_word:str) -> bool:
     unknoun_word_list = [*unknoun_word]
-    
+
+    #print("_" in unknoun_word_list)
     return "_" in unknoun_word_list
     
 
+"""def checkInput(input:str) :
+    try:"""
 
 
 
-
-
-
-
+## Execute Game ##
 
 random_word, unknoun_word = selectWord(words)
+
+while (checkIfUnderscoresRemaining(unknoun_word) and life_count >= 0):
+
+    if life_count == 0:
+        print("Ya no tiene vidas, Perdió :( ")
+        break
+
+    print(unknoun_word)
+
+    letter_input = input("Ingrese una letra: ")
+
+    letters_set = identifyLettersInWord(random_word)
+    
+    check = checkIfLetterInWord(letter_input, random_word)
+
+    life_count = losingLife(life_count,check)
+
+    unknoun_word = replaceUnderscoresWithLetter(letter_input,random_word,unknoun_word)
+
+    if checkIfUnderscoresRemaining(unknoun_word) == False:
+        print(f"Ha adivinado la palabra que es: '{unknoun_word}', \nGanó :) ")
+    else:
+        print(f"Le quedan {life_count} vidas")
+
+
+
+
+
+
+
+""" random_word, unknoun_word = selectWord(words)
 print(random_word)
 letters = identifyLettersInWord(random_word)
 print(letters)
@@ -90,4 +130,4 @@ life_count = losingLife(life_count,check)
 print(life_count)
 unknoun_word = replaceUnderscoresWithLetter("e",random_word,unknoun_word)
 check2= checkIfUnderscoresRemaining(unknoun_word)
-print(check2)
+print(check2) """
